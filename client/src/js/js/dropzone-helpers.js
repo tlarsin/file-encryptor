@@ -79,7 +79,7 @@ function handleReaderLoad(evt) {
 }
 
 function uploadFile (current_file) {
-	return fetch('http://localhost:3000/api/upload' , {
+	return fetch('http://localhost:5000/upload' , {
 		method: 'POST',
 		body: JSON.stringify(current_file),
 		headers: {
