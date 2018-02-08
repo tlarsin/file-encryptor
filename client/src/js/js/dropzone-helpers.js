@@ -1,11 +1,13 @@
+import FileSaver from 'file-saver';
+
 var all_files = [];
-console.log('All files: ' + all_files.length);
 var current_file_id = 0;
 var locked = false;
 var prev_count_files = 0;
 var waiting = 0;
 
 var file_name = "";
+
 
 export function newFile (evt) {
 	console.log('evt: ' + evt);
@@ -104,7 +106,8 @@ export function encrypt (passphrase) {
         name: file_name,
         passphrase: passphrase
     };
-	return fetch('http://localhost:5000/encrypt' , {
+
+ 	return fetch('http://localhost:5000/encrypt' , {
 		method: 'POST',
 		body: JSON.stringify(current_file),
 		headers: {
@@ -112,11 +115,31 @@ export function encrypt (passphrase) {
 			'Content-Type': 'application/json'
 		}
 	}).then(res => {
+		res = res.json();
+		// console.log('Res: '+ res.co);
+	    var blob = new Blob(res.contents, {type: "text/plain;charset=utf-8"});
+	    FileSaver.saveAs(blob, res.name);
 		return res;
 	}).catch(err => err);
 }
 
-export function decrypt () {
+export function decrypt (passphrase) {
+    var current_file = {
+        name: file_name,
+        passphrase: passphrase
+    };
+	return fetch('http://localhost:5000/decrypt' , {
+		method: 'POST',
+		body: JSON.stringify(current_file),
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+	}).then(res => {
+		window.open('http://localhost:5000/api/upload/' + current_file.name);
+
+		return res;
+	}).catch(err => err);
 
 }
 

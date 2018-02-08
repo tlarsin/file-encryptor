@@ -12,21 +12,28 @@ class Content extends Component {
         this.decryptFile = this.decryptFile.bind(this);
 
         this.getPassphrase = this.getPassphrase.bind(this);
+        this.clearInput = this.clearInput.bind(this);
     }
 
     encryptFile () {
         encrypt(this.getPassphrase());
+        this.clearInput();
     }
 
     decryptFile () {
         decrypt(this.getPassphrase());
+        this.clearInput();
     }
 
     getPassphrase () {
         var pass = document.getElementById('passphrase').value;
-        
+
         if(pass.length > 5 && fileLength()) return pass;
         else alert("Please make sure you have uploaded a file an entered a passphrase longer than 5 characters.");
+    }
+
+    clearInput () {
+        document.getElementById('passphrase').value = '';
     }
 
     render() {

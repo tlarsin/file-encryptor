@@ -6,5 +6,7 @@ module.exports = {
     bucket: ''
   },
   s3_enabled: false,
-  upload_dir: './api/upload'
+  upload_dir: './api/upload',
+  download_dir: './api/download',
+  url: 'http://localhost:5000'
 };
