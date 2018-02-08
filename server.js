@@ -35,14 +35,31 @@ app.post('/upload', (req, res) => {
 
 	if(fs.existsSync(config.upload_dir)) {
 		console.log("EXISTS");
-        fs.writeFile(filePath, fileContents, 'ascii');
-
+        fs.writeFile(filePath, fileContents, (error) => { /* handle error */ });
 	}
 	else{
 		console.log('Doesnt exit');
 	}
 	res.send()
 });
+
+app.post('/encrypt', (req, res) => {
+	var file = req.body;
+	var fileName = file.name;
+	var passphrase = file.passphrase;
+
+    var filePath = config.upload_dir + '/' + fileName;
+
+
+    if(fs.existsSync(filePath)) {
+        var text = fs.readFileSync(filePath,'utf8');
+
+        var new_ciphertext = CryptoJS.AES.encrypt(text, passphrase);
+
+        fs.writeFile(filePath + '.encrypted', new_ciphertext, (error) => { /* handle error */ });
+    }
+});
+
 /******************/
 /*  GET Requests  */
 /******************/

@@ -98,8 +98,22 @@ function uploadFile (current_file) {
 }
 
 
-export function encrypt () {
+export function encrypt (passphrase) {
 
+    var current_file = {
+        name: file_name,
+        passphrase: passphrase
+    };
+	return fetch('http://localhost:5000/encrypt' , {
+		method: 'POST',
+		body: JSON.stringify(current_file),
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}
+	}).then(res => {
+		return res;
+	}).catch(err => err);
 }
 
 export function decrypt () {
