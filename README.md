@@ -9,6 +9,7 @@ Simple ReactJS Web Application that encrypts/decrypts files based on the *Advanc
 
 ### Desired Features
   * Increase supported file formats
+  * Encrypt/decrypt multiple files at once with the same passphrase
   * Choice of file download (File won't automatically download after choosing encryption/decryption)
   * Support more encryption algorithms
 
