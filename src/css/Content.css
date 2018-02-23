@@ -1,4 +1,7 @@
 
+body {
+	background-color: #007ea7;
+}
 p {
 	margin: 10px auto;
 	width: 50%;
@@ -32,7 +35,7 @@ input[type=password], input[type=text] {
 .btn {
 	font-family: Arial, Helvetica, sans-serif;
 	margin: auto 50px ;
-	background-color: #4CAF50; /* Green */
+	background-color: #00171f; /* Green */
 	border: none;
 	color: white;
 	padding: 15px 32px;

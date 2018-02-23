@@ -24,8 +24,8 @@ class Dropzone extends Component {
     render() {
         return(
 		    <div className="dropzone" id="dropzone" onClick={this.openFileDialog}>
-		        <span>Drop the files here...</span>
-		    	<input type="file" id="addFile" onChange={this.addFile} multiple/>
+		        <span>Click to add files</span>
+		    	<input type="file" id="addFile" onChange={this.addFile} multiple />
 		    </div>
         );
     }

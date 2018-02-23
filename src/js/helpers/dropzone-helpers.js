@@ -85,8 +85,10 @@ function handleFiles (files) {
 
 		  var reader = new FileReader();
 		  reader.onload = handleReaderLoad;
-		  reader.readAsDataURL(current_file);
-
+			if(current_file.type != 'application/pdf')
+		  	reader.readAsDataURL(current_file);
+			else
+				reader.readAsText(current_file);
 		} else {
 		  locked = false;
 		}
@@ -105,6 +107,13 @@ function handleReaderLoad(evt) {
 	file_type = current_file.type;
 }
 
+/* Check if PDF */
+
+function readPDF() {
+
+}
+
+/* Exported functions into Content.js */
 export function encrypt (passphrase) {
 		/* Translates file contents into Base 64 */
 		var fileBuffer = new Buffer(file_contents, "base64");
@@ -145,9 +154,6 @@ export function decrypt (passphrase) {
 	} catch(e) {
 		alert("Please make sure your passphrase is correct.");
 	}
-
-
-
 }
 
 export function fileLength() {
