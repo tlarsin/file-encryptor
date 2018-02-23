@@ -5,6 +5,13 @@ import aes from 'crypto-js/aes';
 import cryptoJsEncUtf8 from "crypto-js/enc-utf8";
 import FileSaver from 'file-saver';
 
+var supported_files = {
+	".txt":"text/plain",
+	".jpeg": "image/jpeg",
+	".png": "image/png",
+	".pdf": "application/pdf"
+};
+
 var all_files = [];
 var current_file_id = 0;
 var locked = false;
@@ -58,11 +65,18 @@ function handleFiles (files) {
   function handleNextFile () {
 
 		if ( current_file_id < all_files.length ) {
-
 		  locked = true;
 
-		  document.getElementById('file-' + current_file_id).querySelector('.progress').innerHTML = 'Unencrypted';
+			var file_name = all_files[current_file_id].name;
+			var encrypted = file_name.includes(".encrypted");
 
+			if(encrypted) {
+				document.getElementById('file-' + current_file_id).querySelector('.progress').innerHTML = 'Encrypted';
+			}
+			else {
+				document.getElementById('file-' + current_file_id).querySelector('.progress').innerHTML = 'Not encrypted';
+			}
+			
 		  var current_file = all_files[current_file_id];
 
 		  var reader = new FileReader();
@@ -109,14 +123,26 @@ export function decrypt (passphrase) {
 		 translate the decrpyted bytes to UTF 8
 	*/
 	var bytes = aes.decrypt(fileBuffer.toString(), passphrase);
-	var plain = bytes.toString(cryptoJsEncUtf8);
 
-	/* Regex to remove '.encrypted' off of file name */
-	file_name = file_name.substr(0, file_name.lastIndexOf('.')) || file_name;
+	/* Try/Catch block to handle Malformed UTF-8 error */
+	try {
+		var plain = bytes.toString(cryptoJsEncUtf8);
 
-	/* Downloads file */
-	var file = new File([plain], file_name, {type: file_type});
-	FileSaver.saveAs(file);
+		/* Regex to remove '.encrypted' off of file name */
+		file_name = file_name.substr(0, file_name.lastIndexOf('.')) || file_name;
+
+		console.log("file type:" + file_type);
+		console.log("Contents: " + plain);
+		/* Downloads file */
+		var file = new File([plain], file_name, {type: file_type});
+		FileSaver.saveAs(file);
+
+	} catch(e) {
+		alert("Please make sure your passphrase is correct.");
+	}
+
+
+
 }
 
 export function fileLength() {
