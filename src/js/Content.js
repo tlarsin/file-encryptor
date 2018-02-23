@@ -14,6 +14,8 @@ class Content extends Component {
         this.getPassphrase = this.getPassphrase.bind(this);
         this.checkLength = this.checkLength.bind(this);
         this.clearInput = this.clearInput.bind(this);
+
+        this.showPassphrase = this.showPassphrase.bind(this);
     }
 
     encryptFile () {
@@ -48,18 +50,28 @@ class Content extends Component {
         document.getElementById('passphrase').value = '';
     }
 
+    showPassphrase() {
+      var x = document.getElementById("passphrase");
+      if (x.type === "password") {
+          x.type = "text";
+      } else {
+          x.type = "password";
+      }
+    }
+
     render() {
         return(
-	        <div className="choices">
-				<div className="input_data">
-					<p>Please enter a secure passphrase -- make sure to memorize it as this is the only way to decrypt your file.</p>
-			        <input id="passphrase" type="password" placeholder="i.e. secure dog floats away ..."/>
-				</div>
-				<div className="buttons">
-			        <a className="btn encrypt" id="encrypt_btn" onClick={this.encryptFile} href="#">ENCRYPT FILE</a>
-			        <a className="btn decrypt" id="decrypt_btn" onClick={this.decryptFile} href="#">DECRYPT FILE</a>
-				</div>
-	    	</div>
+          <div className="choices">
+    				<div className="input_data">
+    					<p>Please enter a secure passphrase -- make sure to memorize it as this is the only way to decrypt your file.</p>
+    			        <input id="passphrase" type="password" placeholder="i.e. secure dog floats away ..."/>
+                  <img src={require('../css/res/eye-slash.png')} className="pass-visible" onClick={this.showPassphrase} />
+    				</div>
+    				<div className="buttons">
+    			        <a className="btn encrypt" id="encrypt_btn" onClick={this.encryptFile} href="#">ENCRYPT FILE</a>
+    			        <a className="btn decrypt" id="decrypt_btn" onClick={this.decryptFile} href="#">DECRYPT FILE</a>
+    				</div>
+          </div>
         );
     }
 }

@@ -5,7 +5,7 @@ p {
 	text-align: center;
 }
 
-input[type=password] {
+input[type=password], input[type=text] {
     width: 50%;
     padding: 5px 10px;
     margin: 8px 0;
@@ -16,6 +16,15 @@ input[type=password] {
 	margin: auto;
 }
 
+.pass-visible {
+	position: relative;
+	right: 35px;
+	height: 23px;
+	top: 7px;
+	width: auto;
+	margin: -30px -3px 1px 1px;
+}
+
 .buttons {
 	margin: 20px auto;
 }
@@ -23,14 +32,14 @@ input[type=password] {
 .btn {
 	font-family: Arial, Helvetica, sans-serif;
 	margin: auto 50px ;
-    background-color: #4CAF50; /* Green */
-    border: none;
+	background-color: #4CAF50; /* Green */
+	border: none;
 	color: white;
 	padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
 }
 
 @media (max-width: 575px) {

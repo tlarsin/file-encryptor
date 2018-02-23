@@ -111,6 +111,7 @@ export function encrypt (passphrase) {
 		/* Encryption based on passphrase */
 		var cipherBuffer = aes.encrypt(fileBuffer.toString(), passphrase);
 
+		console.log('File type: ' + file_type);
 		/* Downloads file with '.encrypted' extension */
 		var file = new File([cipherBuffer], file_name + '.encrypted', {type: file_type});
 		FileSaver.saveAs(file);
@@ -118,6 +119,7 @@ export function encrypt (passphrase) {
 }
 
 export function decrypt (passphrase) {
+	console.log('File type: ' + file_type);
 
 	/* Translate file contents into Base 64 */
 	var fileBuffer = new Buffer(file_contents, "base64");
