@@ -16,4 +16,4 @@ Simple ReactJS Web Application that encrypts/decrypts files based on the *Advanc
 
 ### HTML5 Upload
 
-[*Merty*](https://github.com/merty/simple-file-uploader) created an HTML5 file upload system using NodeJS. I am using his JS files that handle the file uploading and manipulating.
+[*Merty*](https://github.com/merty/simple-file-uploader){:target="_blank"} created an HTML5 file upload system using NodeJS. I am using his JS files that handle the file uploading and manipulating.
