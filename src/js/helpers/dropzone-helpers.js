@@ -67,16 +67,20 @@ function handleFiles (files) {
 		if ( current_file_id < all_files.length ) {
 		  locked = true;
 
+			/* Gets name of file and checks if it has a '.encrypted' file extension
+				 if so, the file progress says 'Encrypted' or 'Not encrypted'
+			*/
 			var file_name = all_files[current_file_id].name;
 			var encrypted = file_name.includes(".encrypted");
 
+			/* Sets message for files that have been added */
 			if(encrypted) {
 				document.getElementById('file-' + current_file_id).querySelector('.progress').innerHTML = 'Encrypted';
 			}
 			else {
 				document.getElementById('file-' + current_file_id).querySelector('.progress').innerHTML = 'Not encrypted';
 			}
-			
+
 		  var current_file = all_files[current_file_id];
 
 		  var reader = new FileReader();
@@ -102,7 +106,6 @@ function handleReaderLoad(evt) {
 }
 
 export function encrypt (passphrase) {
-
 		/* Translates file contents into Base 64 */
 		var fileBuffer = new Buffer(file_contents, "base64");
 		/* Encryption based on passphrase */

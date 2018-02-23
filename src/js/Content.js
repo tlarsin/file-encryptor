@@ -12,24 +12,36 @@ class Content extends Component {
         this.decryptFile = this.decryptFile.bind(this);
 
         this.getPassphrase = this.getPassphrase.bind(this);
+        this.checkLength = this.checkLength.bind(this);
         this.clearInput = this.clearInput.bind(this);
     }
 
     encryptFile () {
-        encrypt(this.getPassphrase());
+      if(this.checkLength() && fileLength())
+          encrypt(this.getPassphrase());
+      else alert("Please make sure you have uploaded a file and entered a passphrase longer than 5 characters.");
         this.clearInput();
     }
 
     decryptFile () {
-        decrypt(this.getPassphrase());
+      if(this.checkLength() && fileLength())
+          decrypt(this.getPassphrase());
+      else alert("Please make sure you have uploaded a file and entered a passphrase longer than 5 characters.");
+
         this.clearInput();
     }
 
     getPassphrase () {
-        var pass = document.getElementById('passphrase').value;
+        return document.getElementById('passphrase').value;
+    }
 
-        if(pass.length > 5 && fileLength()) return pass;
-        else alert("Please make sure you have uploaded a file an entered a passphrase longer than 5 characters.");
+    checkLength() {
+      var pass = document.getElementById('passphrase').value;
+
+      if(pass.length > 5)
+        return true;
+      else
+        return false;
     }
 
     clearInput () {
