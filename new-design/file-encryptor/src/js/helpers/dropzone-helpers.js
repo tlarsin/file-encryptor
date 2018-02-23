@@ -89,46 +89,34 @@ function handleReaderLoad(evt) {
 
 export function encrypt (passphrase) {
 
-		console.log('name: ' + file_name);
-		// file_contents = all_files[current_file_id].contents;
+		/* Translates file contents into Base 64 */
 		var fileBuffer = new Buffer(file_contents, "base64");
-
-		console.log('Test: ' + fileBuffer);
-
+		/* Encryption based on passphrase */
 		var cipherBuffer = aes.encrypt(fileBuffer.toString(), passphrase);
 
-		// console.log('File buf:' + fileBuffer)
+		/* Downloads file with '.encrypted' extension */
 		var file = new File([cipherBuffer], file_name + '.encrypted', {type: file_type});
 		FileSaver.saveAs(file);
-
-		// this.href = url;
-		// this.target = '_blank';
-		//
-		// // target filename
-		// this.download = file_name;
 
 }
 
 export function decrypt (passphrase) {
 
-	console.log('name: ' + file_name);
-	// file_contents = all_files[current_file_id].contents;
-
-
-	var cipher = aes.decrypt(file_contents.toString(), passphrase);
+	/* Translate file contents into Base 64 */
 	var fileBuffer = new Buffer(file_contents, "base64");
 
-	var text = 'Hey yo boy'
-	var ciphertext = aes.encrypt(text, 'Test this');
-
+	/* Base 64 file contents decryption based on passphrase then
+		 translate the decrpyted bytes to UTF 8
+	*/
 	var bytes = aes.decrypt(fileBuffer.toString(), passphrase);
 	var plain = bytes.toString(cryptoJsEncUtf8);
 
-	console.log('Cipher: ' + ciphertext + 'Plain: ' + plain)
-	// console.log('File buf:' + fileBuffer)
+	/* Regex to remove '.encrypted' off of file name */
+	file_name = file_name.substr(0, file_name.lastIndexOf('.')) || file_name;
+
+	/* Downloads file */
 	var file = new File([plain], file_name, {type: file_type});
 	FileSaver.saveAs(file);
-
 }
 
 export function fileLength() {
